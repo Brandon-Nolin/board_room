@@ -1,5 +1,6 @@
 ActiveAdmin.register Game do
-  permit_params :name, :description, :stock_quantity, :min_players, :max_players, :current_price, :sale_price, :category_ids, :new_category_name
+  permit_params :name, :description, :stock_quantity, :min_players, :max_players, :current_price, :sale_price, :category_ids
+  remove_filter :image_attachment, :image_blob
 
   form do |f|
     f.semantic_errors
@@ -13,6 +14,7 @@ ActiveAdmin.register Game do
       f.input :current_price
       f.input :sale_price
       f.input :categories, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
+      f.input :image, as: :file, input_html: { accept: 'image/*' }
     end
     f.actions
   end
@@ -45,6 +47,13 @@ ActiveAdmin.register Game do
       row "Categories" do |game|
         game.categories.map(&:name).join(", ")
       end
+      row :image do |game|
+        if game.image.attached?
+          image_tag rails_blob_path(game.image, only_path: true)
+        else
+          "No Image Available"
+        end
+      end
     end
   end
 
@@ -58,8 +67,11 @@ ActiveAdmin.register Game do
 
     def update
       @game = Game.find(params[:id])
+      if params[:game][:image].present?
+        @game.image.attach(params[:game][:image])
+      end
       @game.categories = Category.find(params[:game][:category_ids].reject(&:empty?))
-      @game.update(permitted_params[:game])
+      @game.update(permitted_params[:game].except(:image))
       redirect_to admin_games_path
     end
   end
