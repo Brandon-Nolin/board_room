@@ -49,7 +49,7 @@ ActiveAdmin.register Game do
       end
       row :image do |game|
         if game.image.attached?
-          image_tag rails_blob_path(game.image, only_path: true)
+          image_tag rails_blob_path(game.image, only_path: true), style: "max-width: 500px; max-height: 500px;"
         else
           "No Image Available"
         end
