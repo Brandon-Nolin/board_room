@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :games, only: [:index, :show]
+  resources :categories, only: [:index, :show]
   
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

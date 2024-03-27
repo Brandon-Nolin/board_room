@@ -1,0 +1,14 @@
+<div class="mx-6">
+  <div role="list" class="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4">
+    <% @categories.each do |category| %>
+      <a href="<%= category_path(category)%>" class="rounded-md shadow-sm !no-underline">
+        <div class="flex flex-1 items-center justify-between truncate rounded-r-md border border-gray-200 bg-gray-50 hover:bg-gray-100">
+          <div class="flex-1 truncate px-4 py-2 text-sm">
+            <p href="#" class="mb-1.5 font-medium text-gray-900 hover:text-gray-600"><%= category.name %></p>
+            <p class="text-gray-500 mb-1.5"><%= category.games.length() %> games</p>
+          </div>
+        </div>
+      </a>
+    <% end %>
+  </div>
+</div>
