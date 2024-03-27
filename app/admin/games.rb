@@ -1,5 +1,5 @@
 ActiveAdmin.register Game do
-  permit_params :name, :description, :stock_quantity, :min_players, :max_players, :current_price, :sale_price, :category_ids
+  permit_params :name, :description, :stock_quantity, :min_players, :max_players, :current_price, :year_published, :sale_price, :category_ids
   remove_filter :image_attachment, :image_blob
 
   form do |f|
@@ -11,6 +11,7 @@ ActiveAdmin.register Game do
       f.input :min_age
       f.input :min_players
       f.input :max_players
+      f.input :year_published
       f.input :current_price
       f.input :sale_price
       f.input :categories, as: :check_boxes, collection: Category.all.map { |category| [category.name, category.id] }
@@ -29,6 +30,7 @@ ActiveAdmin.register Game do
     column :min_age
     column :min_players
     column :max_players
+    column :year_published
     column :current_price
     column :sale_price
     actions
@@ -42,6 +44,7 @@ ActiveAdmin.register Game do
       row :min_age
       row :min_players
       row :max_players
+      row :year_published
       row :current_price
       row :sale_price
       row "Categories" do |game|
