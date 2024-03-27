@@ -28,11 +28,11 @@
           </div>
         </div>
       </div>
-      <div class="flex lg:ml-4 lg:flex lg:items-center !hover:bg-white">
+      <div class="hidden lg:ml-4 lg:flex lg:items-center !hover:bg-white">
         <button type="button" class="relative flex-shrink-0 rounded-full !hover:bg-white p-1 text-gray-400 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
           <span class="absolute -inset-1.5"></span>
           <span class="sr-only">View Cart</span>
-          <svg class="h-6 w-6 text-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+          <svg class="h-8 w-8 text-current" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
               <defs></defs>
               <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
                   <path d="M 72.975 58.994 H 31.855 c -1.539 0 -2.897 -1.005 -3.347 -2.477 L 15.199 13.006 H 3.5 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 h 14.289 c 1.539 0 2.897 1.005 3.347 2.476 l 13.309 43.512 h 36.204 l 10.585 -25.191 h -6.021 c -1.933 0 -3.5 -1.567 -3.5 -3.5 s 1.567 -3.5 3.5 -3.5 H 86.5 c 1.172 0 2.267 0.587 2.915 1.563 s 0.766 2.212 0.312 3.293 L 76.201 56.85 C 75.655 58.149 74.384 58.994 72.975 58.994 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: currentColor; fill-rule: nonzero; opacity: 1;" transform="matrix(1 0 0 1 0 0)" stroke-linecap="round" />
@@ -50,57 +50,94 @@
           <span class="sr-only">Open main menu</span>
           <!--
             Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
           -->
           <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
           <!--
             Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
           -->
           <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
-      <div class="flex items-center ml-3">
-        <%= link_to "Log In", new_user_session_path, class: "justify-center rounded-md border border-3 border-indigo-600 bg-white px-4 py-2 text-base font-medium text-indigo-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"%>
-      </div>
-      <div class="flex items-center ml-3">
-        <%= link_to "Sign Up", new_user_registration_path, class: "justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"%>
-      </div>
+      <% if user_signed_in? %>
+        <!-- Profile dropdown - displayed if logged in -->
+        <div class="items-center hidden lg:flex">
+        <div class="relative ml-3">
+          <div>
+            <button type="button" class="relative flex rounded-full bg-white text-gray-500 hover:text-gray-600 text-base focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+              <span class="absolute -inset-1.5"></span>
+              <span class="sr-only">Open user menu</span>
+              <svg class="mt-1 h-8 w-8 rounded-full currentColor" stroke-width="1.5" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M508.3136 498.2784A221.4912 221.4912 0 1 0 286.72 276.48a221.7984 221.7984 0 0 0 221.5936 221.7984z m0-393.8304A172.3392 172.3392 0 1 1 336.0768 276.48a172.4416 172.4416 0 0 1 172.2368-172.032zM680.5504 536.7808a44.7488 44.7488 0 0 0-37.5808 3.2768 276.48 276.48 0 0 1-266.752 1.4336 44.6464 44.6464 0 0 0-37.6832-2.8672A481.28 481.28 0 0 0 30.0032 942.08a24.576 24.576 0 0 0 22.016 26.9312h2.4576a24.576 24.576 0 0 0 24.4736-22.1184 432.5376 432.5376 0 0 1 275.0464-361.472A326.5536 326.5536 0 0 0 665.6 583.68a437.4528 437.4528 0 0 1 279.4496 362.9056 24.576 24.576 0 1 0 48.9472-4.5056 487.0144 487.0144 0 0 0-313.4464-405.2992z" fill="currentColor" />
+              </svg>
+          </button>
+          </div>
+          <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu" tabindex="-1">
+            <%= link_to("Your Profile", edit_user_registration_path, class:"block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer") %>
+            <%= form_with(url: destroy_user_session_path, method: :delete) do |form| %>
+              <%= form.submit "Sign Out", class:"block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer" %>
+            <% end %>
+          </div>
+        </div>
+        </div>
+      <% else %>
+        <!-- Login/Signup buttons - displayed if the user is not logged in -->
+        <div class="flex items-center ml-3">
+          <%= link_to "Log In", new_user_session_path, class: "justify-center rounded-md border border-3 border-indigo-600 bg-white px-4 py-2 text-base font-medium text-indigo-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"%>
+        </div>
+        <div class="flex items-center ml-3">
+          <%= link_to "Sign Up", new_user_registration_path, class: "justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"%>
+        </div>
+      <% end %>
     </div>
   </div>
 
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="lg:hidden hidden" id="mobile-menu">
     <div class="space-y-1 pb-3 pt-2">
-      <!-- Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800" -->
       <a href="/" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path == '/' ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Home</a>
       <a href="/about" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path == '/about' ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">About</a>
       <a href="/games" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path.start_with?('/games') ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Games</a>
       <a href="/categories" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path.start_with?('/categories') ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Categories</a>
+    
+      <% if user_signed_in? %>
+        <%= link_to("Your Profile", edit_user_registration_path, class: "block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 #{current_page?(edit_user_registration_path) ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent'}") %>
+        <%= form_with(url: destroy_user_session_path, method: :delete) do |form| %>
+          <%= form.submit "Sign Out", class:"block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </nav>
 
 <script>
   document.addEventListener("turbo:load", function() {
-    const button = document.querySelector('[aria-controls="mobile-menu"]');
-    const menu = document.getElementById("mobile-menu");
+    const mobileMenuButton = document.querySelector('[aria-controls="mobile-menu"]');
+    const profileMenuButton = document.getElementById("user-menu-button")
+    const mobileMenu = document.getElementById("mobile-menu");
+    const profileMenu = document.querySelector('.absolute[aria-labelledby="user-menu"]');
 
-    function toggleMenu() {
+    function toggleMenu(button, menu) {
       const expanded = button.getAttribute("aria-expanded") === "true" || false;
       button.setAttribute("aria-expanded", !expanded);
       menu.classList.toggle("hidden");
     }
 
-    if (!button.hasAttribute("data-turbo-listener")) {
-      button.addEventListener("click", toggleMenu);
-      button.setAttribute("data-turbo-listener", "true");
+    if (!mobileMenuButton.hasAttribute("data-turbo-listener")) {
+      mobileMenuButton.addEventListener("click", function() {
+        toggleMenu(mobileMenuButton, mobileMenu);
+      });
+      mobileMenuButton.setAttribute("data-turbo-listener", "true");
+    }
+
+    if (!profileMenuButton.hasAttribute("data-turbo-listener")) {
+      profileMenuButton.addEventListener("click", function() {
+        toggleMenu(profileMenuButton, profileMenu);
+      });
+      profileMenuButton.setAttribute("data-turbo-listener", "true");
     }
   });
 </script>
