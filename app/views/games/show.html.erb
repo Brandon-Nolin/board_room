@@ -1,6 +1,6 @@
-<div class="flex mx-6 pt-6 justify-between mb-12">
+<div class="flex mx-6 justify-between mb-12">
   <div class="basis-6/12">
-    <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @game.name%></h1>
+    <h1 class="text-2xl mb-2.5 font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @game.name%></h1>
 
     <div>
       <div class="space-y-6">
@@ -16,7 +16,7 @@
           <li class="text-gray-400">
             <span class="text-gray-600">Categories: 
               <% @game.categories.each do |category| %>
-                <%= link_to(category.name, category_path(category)) %><% unless category == @game.categories.last %>, <% end %>
+                <%= link_to(category.name, category_path(category), class: "text-indigo-600 underline") %><% unless category == @game.categories.last %>, <% end %>
               <% end %>
             </span>
           </li>
@@ -37,7 +37,7 @@
         <p class="text-lg">$<%= @game.current_price %></p>
         <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
       </div>
-      <form>
+      <form class="mt-4">
           <div class="flex gap-4">
             <div class="basis-1/2">
               <div class="mt-2 flex rounded-md shadow-sm text-base">
