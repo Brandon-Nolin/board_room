@@ -24,10 +24,11 @@ items.each do |item|
 
   # Access the name elements with type="primary"
   name = item.at_css('name[type="primary"]')['value']
-  description = CGI.unescapeHTML(item.at_css('description').text.strip)
+  description = item.at_css('description').text.strip
   min_age = item.at_css('minage')['value']
   min_players = item.at_css('minplayers')['value']
   max_players = item.at_css('maxplayers')['value']
+  year_published = item.at_css('yearpublished')['value']
   price = Faker::Number.between(from: 20.0, to: 50.0).round(2)
   stock_quantity = Faker::Number.number(digits: 1)
   category_names = item.css('link[type="boardgamecategory"]').map { |link| link['value'] }
@@ -44,6 +45,7 @@ items.each do |item|
     min_age: min_age,
     min_players: min_players,
     max_players: max_players,
+    year_published: year_published,
     current_price: price,
     stock_quantity: stock_quantity,
     sale_price: sale_price
@@ -57,7 +59,7 @@ items.each do |item|
   game.image.attach(io:image, filename: "#{name}.jpg")
   game.save
 
-  sleep(4)
+  sleep(1)
 end
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
