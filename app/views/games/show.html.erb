@@ -16,7 +16,7 @@
           <li class="text-gray-400">
             <span class="text-gray-600">Categories: 
               <% @game.categories.each do |category| %>
-                <%= category.name %><% unless category == @game.categories.last %>, <% end %>
+                <%= link_to(category.name, category_path(category)) %><% unless category == @game.categories.last %>, <% end %>
               <% end %>
             </span>
           </li>
