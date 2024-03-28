@@ -37,17 +37,18 @@
         <p class="text-lg">$<%= @game.current_price %></p>
         <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
       </div>
-      <form class="mt-4">
-          <div class="flex gap-4">
-            <div class="basis-1/2">
-              <div class="mt-2 flex rounded-md shadow-sm text-base">
-                <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">Quantity: </span>
-                <input type="number" name="amount" id="amount" class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" value="1" min="1" max=<%= @game.stock_quantity%>>
-              </div>
+      <%= form_with url: cart_index_path, method: :post, html: { class: "mt-4" } do |f|%>
+        <%= hidden_field_tag(:id, @game.id)%>
+        <div class="flex gap-4">
+          <div class="basis-1/2">
+            <div class="mt-2 flex rounded-md shadow-sm text-base">
+              <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">Quantity: </span>
+              <%= f.number_field :quantity, value: "1", min: "1", max: @game.stock_quantity, class: "block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
             </div>
-            <button type="submit" class="basis-1/2 rounded-md border border-transparent bg-indigo-600 px-8 py-2 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to cart</button>
           </div>
-        </form>
+          <%= button_tag 'Add to cart', class:"basis-1/2 rounded-md border border-transparent bg-indigo-600 px-8 py-2 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
