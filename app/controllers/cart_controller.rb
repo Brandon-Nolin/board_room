@@ -1,4 +1,7 @@
 class CartController < ApplicationController
+  def index
+    @cart = cart
+  end
   def create
     logger.debug("adding #{params[:id]} to cart.")
     id = params[:id].to_i
@@ -28,7 +31,7 @@ class CartController < ApplicationController
       session[:shopping_cart][params[:id]] = params[:stock_quantity].to_i
     end
 
-    redirect_to checkout_index_path
+    redirect_to cart_index_path
   end
 
   def decrement
@@ -38,11 +41,11 @@ class CartController < ApplicationController
       session[:shopping_cart].delete(params[:id])
     end
 
-    redirect_to checkout_index_path
+    redirect_to cart_index_path
   end
   def destroy
     session[:shopping_cart].delete(params[:id])
 
-    redirect_to checkout_index_path
+    redirect_to cart_index_path
   end
 end
