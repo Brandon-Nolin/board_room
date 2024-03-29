@@ -9,7 +9,11 @@ class ApplicationController < ActionController::Base
   end
 
   def cart
-    ids = session[:shopping_cart].keys
-    puts Game.find(ids)
+    cart_items = {}
+    session[:shopping_cart].each do |id, quantity|
+      game = Game.find(id)
+      cart_items[game] = quantity
+    end
+    cart_items
   end
 end

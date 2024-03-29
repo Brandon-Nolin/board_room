@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   resources :games, only: [:index, :show]
   resources :categories, only: [:index, :show]
+  resources :cart, only: [:create, :destroy] do
+    collection do
+      patch 'increment'  # Route for increment method
+      patch 'decrement'  # Route for decrement method
+    end
+  end
+  resources :checkout, only: [:index]
+
 
   devise_for :users, controllers: {
   registrations: 'users/registrations'
