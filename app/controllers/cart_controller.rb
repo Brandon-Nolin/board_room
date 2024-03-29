@@ -1,7 +1,6 @@
 class CartController < ApplicationController
   def index
     @cart = cart
-    province = Province.find(current_user.province_id)
 
     @subtotal = 0
 
@@ -9,9 +8,13 @@ class CartController < ApplicationController
       @subtotal += game.current_price * quantity
     end
 
-    total_tax_rate = province.hst.to_d + province.gst.to_d + province.pst.to_d
-    @tax_total = (@subtotal * total_tax_rate).round(2)
-    @total = @subtotal + @tax_total
+    if user_signed_in?
+      province = Province.find(current_user.province_id)
+
+      total_tax_rate = province.hst.to_d + province.gst.to_d + province.pst.to_d
+      @tax_total = (@subtotal * total_tax_rate).round(2)
+      @total = @subtotal + @tax_total
+    end
   end
   def create
     logger.debug("adding #{params[:id]} to cart.")
