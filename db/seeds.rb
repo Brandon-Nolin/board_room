@@ -3,7 +3,7 @@ Category.delete_all
 AdminUser.delete_all
 
 
-ids = (1..10).to_a.join(',')
+ids = (1..100).to_a.join(',')
 url = "https://boardgamegeek.com/xmlapi2/thing?id=#{ids}"
 
 # Fetch the XML content from the URL
@@ -56,7 +56,7 @@ items.each do |item|
     game.categories << category
   end
 
-  game.image.attach(io:image, filename: "#{name}.jpg")
+  game.image.attach(io:image, filename: "#{game.id}.jpg")
   game.save
 
   sleep(1)
