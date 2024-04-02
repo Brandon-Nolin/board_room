@@ -34,8 +34,13 @@
     </div>
     <div>
       <div class="flex justify-between mt-2">
-        <p class="text-lg">$<%= @game.current_price %></p>
-        <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
+        <% if @game.sale_price%>
+            <p class="text-lg">$<%= @game.sale_price %> <span class="line-through text-gray-400 ml-2">$<%= @game.current_price%></span></p>
+            <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
+        <% else %>
+            <p class="text-lg">$<%= @game.current_price %></p>
+            <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
+        <% end %>
       </div>
       <%= form_with url: cart_index_path, method: :post, html: { class: "mt-4" } do |f|%>
         <%= hidden_field_tag(:id, @game.id)%>
