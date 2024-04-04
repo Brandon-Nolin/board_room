@@ -5,14 +5,18 @@ class CheckoutController < ApplicationController
     @games = Game.find(session[:shopping_cart].keys)
 
     line_items = []
+    subtotal = 0
 
     session[:shopping_cart].each do |game_id, quantity|
       game = Game.find(game_id)
+      price = !game.sale_price.nil? ? game.sale_price : game.current_price
+      subtotal += price * quantity
+      
       line_items.append(
         {
           quantity: quantity,
           price_data: {
-            unit_amount: (game.current_price * 100).to_i,
+            unit_amount: (price * 100).to_i,
             currency: "cad",
               product_data: {
                 name: game.name,
@@ -23,12 +27,15 @@ class CheckoutController < ApplicationController
       )
     end
 
-    line_items.append(
+    user_province = current_user.province
+
+    if !user_province.gst.nil?
+      line_items.append(
       {
           quantity: 1,
           price_data: {
             currency: "cad",
-            unit_amount: (@games[0].current_price * 100 * 0.05).to_i,
+            unit_amount: (subtotal * 100 * user_province.gst).to_i,
             product_data: {
               name: "GST",
               description: "Goods and Services Tax",
@@ -37,12 +44,15 @@ class CheckoutController < ApplicationController
         }
         
     )
-    line_items.append(
+    end
+
+    if !user_province.pst.nil?
+      line_items.append(
       {
         quantity: 1,
         price_data: {
           currency: "cad",
-          unit_amount: (@games[0].current_price * 100 * 0.07).to_i,
+          unit_amount: (subtotal * 100 * user_province.pst).to_i,
           product_data: {
             name: "PST",
             description: "Provincial Sales Tax",
@@ -50,6 +60,23 @@ class CheckoutController < ApplicationController
           }
         }
     )
+    end
+
+    if !user_province.hst.nil?
+      line_items.append(
+        {
+          quantity: 1,
+          price_data: {
+            currency: "cad",
+            unit_amount: (subtotal * 100 * user_province.hst).to_i,
+            product_data: {
+              name: "HST",
+              description: "Harmonized Sales Tax",
+            }
+            }
+          }
+      )
+    end
  
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ["card"],
@@ -70,6 +97,6 @@ class CheckoutController < ApplicationController
   end
  
   def cancel
-    puts "Cancelled"
+    redirect_to cart_index_path
   end
 end

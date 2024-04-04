@@ -5,7 +5,8 @@ class CartController < ApplicationController
     @subtotal = 0
 
     @cart.each do |game, quantity|
-      @subtotal += game.current_price * quantity
+      price = !game.sale_price.nil? ? game.sale_price : game.current_price
+      @subtotal += price * quantity
     end
 
     if user_signed_in?

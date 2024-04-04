@@ -58,7 +58,7 @@
           </button>
           <% end %>
         </div>
-        <h6 class="text-indigo-600 font-manrope font-bold text-2xl leading-9 text-right">$<%= quantity * game.current_price%></h6>
+        <h6 class="text-indigo-600 font-manrope font-bold text-2xl leading-9 text-right">$<%= !game.sale_price.nil? ? quantity * game.sale_price : quantity * game.current_price%></h6>
       </div>
     </div>
   </div>
