@@ -96,8 +96,11 @@
   <% end %>
   
   <div class="max-lg:max-w-lg max-lg:mx-auto">
+    <%= form_with url: checkout_create_path, data: { turbo: false }, remote: true do %>
     <button
+      type="submit"
       class="rounded-full py-4 px-6 bg-indigo-600 text-white font-semibold text-lg w-full text-center transition-all duration-500 hover:bg-indigo-700 ">Proceed to Checkout</button>
+    <% end %>
   </div>
   
 </div>

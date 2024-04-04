@@ -17,7 +17,6 @@ class CartController < ApplicationController
     end
   end
   def create
-    logger.debug("adding #{params[:id]} to cart.")
     id = params[:id].to_i
     quantity = params[:quantity].to_i
 
