@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :city, :address, :postal_code, :province_id)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :city, :address, :postal_code, :province_id)
   end
 
   protected
@@ -20,6 +20,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password, :password_confirmation, :current_password, :city, :address, :postal_code, :province_id])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:email, :password, :password_confirmation, :current_password, :first_name, :last_name, :city, :address, :postal_code, :province_id])
   end
 end
