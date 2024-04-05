@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_04_035246) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_05_203754) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -90,6 +90,29 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_035246) do
     t.integer "year_published"
   end
 
+  create_table "order_games", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "game_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_order_games_on_game_id"
+    t.index ["order_id"], name: "index_order_games_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.decimal "gst"
+    t.decimal "pst"
+    t.decimal "hst"
+    t.string "status"
+    t.string "city"
+    t.string "address"
+    t.string "postal_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "provinces", force: :cascade do |t|
     t.text "name"
     t.decimal "gst"
@@ -120,5 +143,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_04_035246) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "order_games", "games"
+  add_foreign_key "order_games", "orders"
   add_foreign_key "users", "provinces"
 end

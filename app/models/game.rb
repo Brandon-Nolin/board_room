@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   has_and_belongs_to_many :categories
+  has_many :orders, through: :order_games
   has_one_attached :image
 
   def self.ransackable_attributes(auth_object = nil)
