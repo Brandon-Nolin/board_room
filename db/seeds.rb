@@ -22,7 +22,6 @@ counter = 0
 items.each do |item|
   counter += 1
 
-  # Access the name elements with type="primary"
   name = item.at_css('name[type="primary"]')['value']
   description = item.at_css('description').text.strip
   min_age = item.at_css('minage')['value']

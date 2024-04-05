@@ -77,12 +77,27 @@ class CheckoutController < ApplicationController
           }
       )
     end
+
+    @customer = Stripe::Customer.create({
+      name: "#{current_user.first_name} #{current_user.last_name}",
+      email: current_user.email,
+      shipping: {
+        name: "#{current_user.first_name} #{current_user.last_name}",
+        address: {
+          city: current_user.city,
+          country: "CA",
+          line1: current_user.address,
+          state: current_user.province.name,
+          postal_code: current_user.postal_code
+        }
+      }
+    })
  
     @session = Stripe::Checkout::Session.create(
+      customer: @customer,
       payment_method_types: ["card"],
-      success_url: checkout_success_url,
+      success_url: checkout_success_url + "?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: checkout_cancel_url,
-      customer_email: current_user.email,
       mode: "payment",
       line_items: line_items
     )
@@ -93,7 +108,6 @@ class CheckoutController < ApplicationController
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
-    puts @payment_intentS
   end
  
   def cancel
