@@ -64,18 +64,26 @@ ActiveAdmin.register Game do
     def create
       @game = Game.new(permitted_params[:game])
       @game.categories << Category.find(params[:game][:category_ids].reject(&:empty?))
-      @game.save
-      redirect_to admin_games_path
+  
+      if @game.save
+        redirect_to admin_games_path
+      else
+        render :new
+      end
     end
-
+  
     def update
       @game = Game.find(params[:id])
       if params[:game][:image].present?
         @game.image.attach(params[:game][:image])
       end
       @game.categories = Category.find(params[:game][:category_ids].reject(&:empty?))
-      @game.update(permitted_params[:game].except(:image))
-      redirect_to admin_games_path
+  
+      if @game.update(permitted_params[:game].except(:image))
+        redirect_to admin_games_path
+      else
+        render :edit
+      end
     end
   end
 end

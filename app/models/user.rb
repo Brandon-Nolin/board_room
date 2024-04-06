@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   belongs_to :province
   has_many :orders
+
+  validates :email, uniqueness: true
+  validates :city, :address, :postal_code, :first_name, :last_name, :email, :province_id, presence: true
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
