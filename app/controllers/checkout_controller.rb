@@ -106,8 +106,35 @@ class CheckoutController < ApplicationController
   end
  
   def success
-    @session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    puts current_user.inspect
+    #Create the order
+    order = Order.create(
+      user: User.find(current_user.id),
+      hst: current_user.province.hst,
+      pst: current_user.province.pst,
+      gst: current_user.province.gst,
+      city: current_user.city,
+      address: current_user.address,
+      postal_code: current_user.postal_code,
+      province: Province.find(current_user.province_id),
+      status: "payment received"
+    )
+
+    #Create OrderGames
+    session[:shopping_cart].each do |game_id, quantity|
+      game = Game.find(game_id)
+      price = game.sale_price ? game.sale_price : game.current_price
+
+      order_game = OrderGame.create(
+        order: order,
+        game: game,
+        quantity: quantity,
+        price: price
+      )
+
+      #Clear the cart
+      session.delete(:shopping_cart)
+    end
   end
  
   def cancel

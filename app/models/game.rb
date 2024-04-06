@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
   has_and_belongs_to_many :categories
+  has_many :order_games
   has_many :orders, through: :order_games
   has_one_attached :image
 
@@ -9,5 +10,11 @@ class Game < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     ["categories"]
+  end
+
+  private
+
+  def self.ransackable_scopes(auth_object = nil)
+    []
   end
 end

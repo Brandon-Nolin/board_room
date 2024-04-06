@@ -1,6 +1,6 @@
 ActiveAdmin.register Game do
   permit_params :name, :description, :stock_quantity, :min_players, :max_players, :current_price, :year_published, :sale_price, :category_ids
-  remove_filter :image_attachment, :image_blob
+  remove_filter :image_attachment, :image_blob, :order_games, :orders
 
   form do |f|
     f.semantic_errors
