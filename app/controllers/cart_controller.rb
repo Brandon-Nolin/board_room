@@ -34,7 +34,7 @@ class CartController < ApplicationController
       session[:shopping_cart][id] = game.stock_quantity
     end
 
-    flash[:notice] = "#{game.name} added to cart."
+    flash[:notice] = "#{game.name} added to cart. (Quantity: #{quantity})"
     redirect_to "/games"
   end
 

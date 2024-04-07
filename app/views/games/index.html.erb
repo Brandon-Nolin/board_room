@@ -1,5 +1,25 @@
-<div class="bg-white">
+<div class="bg-white relative">
+  <% flash.each do |type, msg| %>
+  <div id="flash" class="right-12 -top-8 absolute pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex w-0 flex-1 justify-between">
+            <p class="w-0 flex-1 text-sm font-medium text-gray-900"><%= msg %></p>
+          </div>
+          <div class="ml-4 flex flex-shrink-0">
+            <button id="flash-close" type="button" class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <span class="sr-only">Close</span>
+              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   <div>
+  <% end %>
+
     <div class="relative z-40 hidden" role="dialog" aria-modal="true">
       <div class="fixed inset-0 bg-black bg-opacity-25"></div>
       <div class="fixed inset-0 z-40 flex">
@@ -93,19 +113,25 @@
 
 <script>
   document.addEventListener("turbo:load", function () {
+    const flashButton = document.getElementById("flash-close");
+    const flashPopup = document.getElementById('flash');
     const openButton = document.getElementById('filter-button');
     const closeButton = document.querySelector('.relative.z-40.hidden .flex button');
     const mobileFilterDialog = document.querySelector('.relative.z-40.hidden');
 
-      openButton.addEventListener('click', function() {
-        mobileFilterDialog.classList.remove('hidden');
-      });
+    flashButton.addEventListener('click', function() {
+      flashPopup.classList.add('hidden');
+    });
 
-      closeButton.addEventListener('click', function() {
-        mobileFilterDialog.classList.add('hidden');
-      });
+    openButton.addEventListener('click', function() {
+      mobileFilterDialog.classList.remove('hidden');
+    });
 
-      if (!openButton.hasAttribute("data-turbo-listener") && !closeButton.hasAttribute("data-turbo-listener")) {
+    closeButton.addEventListener('click', function() {
+      mobileFilterDialog.classList.add('hidden');
+    });
+
+    if (!openButton.hasAttribute("data-turbo-listener") && !closeButton.hasAttribute("data-turbo-listener")) {
       openButton.addEventListener('click', function() {
         mobileFilterDialog.classList.remove('hidden');
       });
