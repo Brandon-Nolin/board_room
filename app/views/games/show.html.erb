@@ -1,4 +1,4 @@
-<div class="flex mx-6 justify-between mb-12">
+<div class="hidden md:flex mx-6 justify-between mb-12">
   <div class="basis-6/12">
     <h1 class="text-2xl mb-2.5 font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @game.name%></h1>
 
@@ -56,4 +56,57 @@
       <% end %>
     </div>
   </div>
+</div>
+
+<div class="mx-2 block md:hidden">
+    <h1 class="text-2xl mb-2.5 font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @game.name%></h1>
+    <div>
+      <%= image_tag @game.image, class: "h-full w-full object-cover object-center lg:h-full lg:w-full" if @game.image.attached? %>
+    </div>
+    <div>
+      <div class="flex justify-between mt-2">
+        <% if @game.sale_price%>
+            <p class="text-lg">$<%= @game.sale_price %> <span class="line-through text-gray-400 ml-2">$<%= @game.current_price%></span></p>
+            <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
+        <% else %>
+            <p class="text-lg">$<%= @game.current_price %></p>
+            <p class="text-gray-600 text-base"><%= @game.stock_quantity%> left in stock</p>
+        <% end %>
+      </div>
+      <%= form_with url: cart_index_path, method: :post, html: { class: "mt-4" } do |f|%>
+        <%= hidden_field_tag(:id, @game.id)%>
+        <div class="flex gap-4">
+          <div class="basis-1/2">
+            <div class="mt-2 flex rounded-md shadow-sm text-base">
+              <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm">Quantity: </span>
+              <%= f.number_field :quantity, value: "1", min: "1", max: @game.stock_quantity, class: "block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+          <%= button_tag 'Add to cart', class:"basis-1/2 rounded-md border border-transparent bg-indigo-600 px-8 py-2 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-4">
+        <%=simple_format(@game.description, class: "text-base text-gray-900") %>
+      </div>
+
+    <div class="mt-10">
+      <h3 class="text-sm font-medium text-gray-900">Details</h3>
+
+      <div class="mt-4">
+        <ul role="list" class="list-disc space-y-2 pl-4 text-sm">
+          <li class="text-gray-400">
+            <span class="text-gray-600">Categories: 
+              <% @game.categories.each do |category| %>
+                <%= link_to(category.name, category_path(category), class: "text-indigo-600 underline") %><% unless category == @game.categories.last %>, <% end %>
+              <% end %>
+            </span>
+          </li>
+          <li class="text-gray-400"><span class="text-gray-600">Year Published: <%= @game.year_published %></span></li>
+          <li class="text-gray-400"><span class="text-gray-600">Recommended Players: <%= @game.min_players %> - <%= @game.max_players %></span></li>
+          <li class="text-gray-400"><span class="text-gray-600">Minimum Age: <%= @game.min_age %></span></li>
+        </ul>
+      </div>
+    </div>
 </div>
