@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root to: "home#index"
-  resources :games, only: [:index, :show]
+  resources :games, only: [:index, :show] do
+    collection do
+      get "search"
+    end
+  end
   resources :categories, only: [:index, :show]
   resources :cart, only: [:create, :destroy, :index] do
     collection do
