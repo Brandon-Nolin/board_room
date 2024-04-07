@@ -10,7 +10,6 @@
         <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
           <!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
           <a href="/" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 <%= current_path == '/' ? 'border-b-2 border-indigo-500' : 'border-b-2 border-transparent' %> !no-underline">Home</a>
-          <a href="/about" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 <%= current_path == '/about' ? 'border-b-2 border-indigo-500' : 'border-b-2 border-transparent' %> !no-underline">About</a>
           <a href="/games" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 <%= current_path.start_with?('/games') ? 'border-b-2 border-indigo-500' : 'border-b-2 border-transparent' %> !no-underline">Games</a>
           <a href="/categories" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 <%= current_path.start_with?('/categories') ? 'border-b-2 border-indigo-500' : 'border-b-2 border-transparent' %> !no-underline">Categories</a>
         </div>
@@ -107,7 +106,6 @@
   <div class="lg:hidden hidden" id="mobile-menu">
     <div class="space-y-1 pb-3 pt-2">
       <a href="/" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path == '/' ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Home</a>
-      <a href="/about" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path == '/about' ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">About</a>
       <a href="/games" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path.start_with?('/games') ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Games</a>
       <a href="/categories" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path.start_with?('/categories') ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Categories</a>
       <a href="/cart" class="block py-2 pl-3 pr-4 text-base font-medium text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 <%= current_path.start_with?('/cart') ? 'border-l-4 border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-l-4 border-transparent' %>">Cart</a>
